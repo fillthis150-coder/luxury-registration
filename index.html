@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Luxury Meet Zone Membership Registration</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  background:black;
+  font-family:'Poppins',sans-serif;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+
+.container{
+  background:#111;
+  width:420px;
+  padding:25px;
+  border-radius:14px;
+  box-shadow:0 0 30px rgba(255,0,85,.6);
+}
+
+h2{
+  text-align:center;
+  margin-bottom:20px;
+  font-weight:700;
+}
+
+label{
+  font-size:13px;
+  margin-top:10px;
+  display:block;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:11px;
+  margin-top:5px;
+  border-radius:6px;
+  border:2px solid #ff0055;
+  background:black;
+  color:white;
+}
+
+input:focus,select:focus,textarea:focus{
+  outline:none;
+  box-shadow:0 0 12px #ff0055;
+}
+
+button{
+  margin-top:15px;
+  width:100%;
+  padding:12px;
+  background:#ff0055;
+  border:none;
+  border-radius:6px;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#ff3366;
+}
+
+.success{
+  text-align:center;
+  margin-top:12px;
+  color:#00ff99;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Luxury Meet Zone Membership Registration</h2>
+
+<form id="regForm">
+
+<label>Full Name</label>
+<input id="fullName" required>
+
+<label>Age</label>
+<input id="age" type="number" required>
+
+<label>Location</label>
+<input id="location" required>
+
+<label>Experience</label>
+<input id="experience">
+
+<label>Available Time</label>
+<input id="time">
+
+<label>Payment Method</label>
+<select id="payment">
+  <option>Bkash</option>
+  <option>Nagad</option>
+  <option>Binance</option>
+  <option>Bybit</option>
+</select>
+
+<label>Select Package</label>
+<select id="packageSelect">
+  <option>3 Months</option>
+  <option>8 Months VIP</option>
+  <option>1.5 Year VIP</option>
+  <option>Lifetime Premium</option>
+</select>
+
+<label>Message</label>
+<textarea id="message" rows="3"></textarea>
+
+<button type="submit">Submit Registration</button>
+</form>
+
+<div class="success" id="successMsg"></div>
+</div>
+
+<script>
+const BOT_TOKEN = "7563968766:AAF1GcD3gU77YZH6pyFNcMRIGMPkM-YJIYE";
+const CHAT_ID  = "6943102954";
+const CHANNEL_LINK = "https://t.me/luxury_bd_agency_vip";
+
+document.getElementById("regForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const text =
+`💎 Luxury Meet Zone – New Registration
+
+👤 Name: ${fullName.value}
+🎂 Age: ${age.value}
+📍 Location: ${location.value}
+💼 Experience: ${experience.value}
+⏰ Time: ${time.value}
+💳 Payment: ${payment.value}
+📦 Package: ${packageSelect.value}
+💬 Message: ${message.value}`;
+
+  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: CHAT_ID,
+      text: text
+    })
+  });
+
+  document.getElementById("successMsg").innerText =
+  "Registration successful! Redirecting...";
+
+  setTimeout(() => {
+    window.location.href = CHANNEL_LINK;
+  }, 2000);
+
+  this.reset();
+});
+</script>
+
+</body>
+</html>
